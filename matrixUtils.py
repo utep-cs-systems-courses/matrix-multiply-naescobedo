@@ -2,6 +2,7 @@
 import argparse
 import numpy as np
 import time
+import pymp
 
 def genMatrix(size, value):
     """
@@ -82,6 +83,18 @@ def matrixBlocked(m1, m2):
                     matrix[i][j] = sum
     return matrix
 
+def matrixParallel(m1, m2):
+    sharedResult = pymp.shared.array((len(m1),(len(m2[0]))), dtype = 'uint16')
+
+    with pymp.Parallel() as p:
+        print(f'number of threads: {p.thread_num} of {p.num_threads}')
+        for i in p.range(len(m1)):
+            for j in range(len(m2[0])):
+                for k in range(len(m2)):
+                    sharedResult[i][j] +=  m1[i][k] * m2[k][j]
+
+        return sharedResult
+
 def main():
     """
     Used for running as a script
@@ -100,6 +113,10 @@ def main():
 
     start = time.monotonic()
     mat3 = matrixBlocked(m1, m2)
+    time2 = time.monotonic() - start
+
+    start = time.monotonic()
+    mat3 = matrixParallel(m1, m2)
     time2 = time.monotonic() - start
 
     printSubarray(mat3)

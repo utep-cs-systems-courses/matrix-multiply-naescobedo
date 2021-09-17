@@ -8,3 +8,4 @@ fi
 
 grep -m 1 "model name" /proc/cpuinfo | tee $1
 grep "model name" /proc/cpuinfo | wc | tee -a $1
+#test

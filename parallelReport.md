@@ -10,9 +10,9 @@ There might be an issue with the timing in the program because it is not being  
 
 Results:
 
-1 threads: 0.4512
-2 threads: 0.2364
-4 threads: 0.0938
-8 threads: 0.0941
+- 1 threads: 0.4512
+- 2 threads: 0.2364
+- 4 threads: 0.0938
+- 8 threads: 0.0941
 
 The conclusion for this program is that the threads drastcally reduces its time when usign 2 threads versus 1, then the time decreases but not in a significant way, and finally int the 8 threads the time goes a little bit up from 4 threads probably because of overhead.
